@@ -15,3 +15,14 @@ jobs:
       
       - name: Build container
         run: docker-compose up -d --build
+  
+  test_front:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Build container
+        run: docker-compose up -d --build
+      
+      - name: Testing front
+        run: docker exec container_frontend bash -c "CI=true npm test --watchAll=false"
