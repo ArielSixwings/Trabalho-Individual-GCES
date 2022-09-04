@@ -36,4 +36,4 @@ jobs:
         run: docker-compose up -d --build
       
       - name: Testing back_end
-        run: docker exec container_backend bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+        run: docker exec container_backend bash -c "python manage.py test"
