@@ -1,0 +1,20 @@
+name: CI
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  test_front:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Build container
+        run: docker-compose up -d --build
+      
+      - name: Testing front_end
+        run: docker exec container_frontend bash -c "CI=true npm test --watchAll=false"
