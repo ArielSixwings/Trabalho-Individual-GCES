@@ -8,24 +8,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  # build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
       
-      - name: Build container
-        run: docker-compose up -d --build
+  #     - name: Build container
+  #       run: docker-compose up -d --build
   
-  test_front:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  # test_front:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
       
-      - name: Build container
-        run: docker-compose up -d --build
+  #     - name: Build container
+  #       run: docker-compose up -d --build
       
-      - name: Testing front_end
-        run: docker exec container_frontend bash -c "CI=true npm test --watchAll=false"
+  #     - name: Testing front_end
+  #       run: docker exec container_frontend bash -c "CI=true npm test --watchAll=false"
 
   test_back:
     runs-on: ubuntu-latest
@@ -36,10 +36,7 @@ jobs:
         run: docker-compose up -d --build
 
       - name: Testing back_end
-        run: docker exec container_backend python manage.py makemigrations
-
-      - name: Testing back_end_step2
-        run: docker exec container_backend python manage.py migrate
+        run: docker exec container_backend python manage.py makemigrations && docker exec container_backend python manage.py migrate
 
       - name: Testing back_end_step3
         run: docker exec container_backend bash -c "python manage.py test"
