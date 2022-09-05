@@ -1,12 +1,12 @@
-name: CI to Docker Hub
-  on:
-    workflow_run:
-      workflows: [ CI_BACK, CI_FRONT, CI_LINT ]
-      types:
-        - completed
-      branches: [ main ]
-  jobs:
+name: CD
+on:
+  workflow_run:
+    workflows: [ CI_BACK, CI_FRONT, CI_LINT ]
+    types:
+      - completed
+    branches: [ main ]
 
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
