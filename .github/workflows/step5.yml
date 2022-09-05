@@ -36,4 +36,10 @@ jobs:
         run: docker-compose up -d --build
 
       - name: Testing back_end
+        run: docker exec container_backend bash -c "python manage.py makemigrations"
+
+      - name: Testing back_end_step2
+        run: docker exec container_backend bash -c "python manage.py migrate"
+
+      - name: Testing back_end_step3
         run: docker exec container_backend bash -c "python manage.py test"
